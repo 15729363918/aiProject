@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        },
+        "checkJs": false // 关键：关闭 JS 文件的类型检查
+    },
+    "include": [
+        "src/**/*",
+        "**/*.vue"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
