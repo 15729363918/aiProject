@@ -1,4 +1,7 @@
+// 导入主页公共布局
 import BackendLayout from '@/components/BackendLayout.vue'
+// 导入登录注册页面公共布局
+import AuthLayout from '@/components/AuthLayout.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 // 路由配置
 const backendRoutes = [
@@ -36,6 +39,26 @@ const backendRoutes = [
 				meta: {
 					title: '情绪日志',
 					icon: 'User',
+				},
+			},
+		],
+	},
+	{
+		path: '/auth',
+		component: AuthLayout,
+		children: [
+			{
+				path: 'login',
+				component: () => import('@/views/login.vue'),
+				meta: {
+					title: '登录',
+				},
+			},
+			{
+				path: 'register',
+				component: () => import('@/views/register.vue'),
+				meta: {
+					title: '注册',
 				},
 			},
 		],
