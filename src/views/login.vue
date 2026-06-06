@@ -32,7 +32,10 @@
     </div>
 </template>
 <script setup>
+    import { login } from '@/api/admin';
     import { ref } from 'vue';
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
     const ruleFormRef = ref(null);
     const formData = ref({
         username: '',
@@ -51,7 +54,23 @@
     const submitForm = async (formEl) => {
         if (!formEl) return
         await formEl.validate((valid, fields) => {
-            console.log('登录成功')
+            if (!valid) return
+            //登录提交
+            login(formData.value).then(data => {
+                //判断token是否存在
+                if (!data.token) {
+                    return console.error('登录失败')
+                }
+                //  登录成功,保存token和用户信息
+                localStorage.setItem('token', data.token)
+                localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
+                // 根据用户角色跳转不同页面
+                if (data.userInfo.userType === 2) {
+                    router.push('/back/dashboard')
+                } else {
+
+                }
+            })
         })
     }
 </script>
